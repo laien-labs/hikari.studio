@@ -12,7 +12,7 @@
 *{box-sizing:border-box}html{background:var(--paper)}
 body{margin:0;min-height:100vh;font-family:var(--serif);color:var(--ink);font-size:18px;line-height:1.5;
   background:radial-gradient(120% 90% at 20% 0%,rgba(255,255,255,.55),transparent 60%),radial-gradient(90% 80% at 100% 100%,rgba(120,100,70,.10),transparent 60%),var(--paper);
-  display:grid;grid-template-columns:var(--rail) clamp(10rem,15vw,14rem) minmax(0,1fr);grid-template-rows:1fr auto;grid-template-areas:"rail list panel" "rail foot foot"}
+  display:grid;grid-template-columns:var(--rail) clamp(13rem,15vw,15rem) minmax(0,1fr);grid-template-rows:1fr auto;grid-template-areas:"rail list panel" "rail foot foot"}
 a{color:inherit}img{display:block;max-width:100%;height:auto}
 .skip{position:absolute;left:-999px;top:0}.skip:focus{left:1rem;background:var(--ink);color:var(--paper);padding:.4rem .8rem;z-index:9}
 .jp{font-family:var(--jp)}
@@ -62,7 +62,7 @@ body.wall-page{grid-template-columns:var(--rail) minmax(0,1fr);grid-template-are
   padding:.5rem .3rem .5rem .45rem;text-decoration:none;border-left:2px solid transparent}
 .list li.on a{border-left-color:var(--red)}
 .list li .n{font-size:.68rem;letter-spacing:.14em;color:var(--muted)}.list li.on .n{color:var(--red)}
-.list .t{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);overflow-wrap:anywhere}
+.list .t{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);overflow-wrap:normal;word-break:keep-all}
 .list li.on .t{color:var(--red)}
 .list li a:hover .t,.list li a:focus-visible .t{color:var(--red)}
 .list li a:hover{background:rgba(0,0,0,.02)}
@@ -83,20 +83,23 @@ body.wall-page{grid-template-columns:var(--rail) minmax(0,1fr);grid-template-are
 /* The lyric and the Resonance are two different voices, the song's and the writing about it.
    A hairline says so without a heading. Only drawn when a quote actually precedes it. */
 .quote+.blurb::before{content:"";display:block;width:2.2rem;height:1px;background:var(--line);margin:0 0 1.7rem}
-.foot{margin-top:auto;padding-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem 1.6rem;align-items:center;
-  justify-content:space-between;border-top:1px solid var(--line)}
+/* The credit and the listen buttons were sharing a row, which squeezed the buttons as soon
+   as a release was on three platforms. They stack instead: who recorded it, then where to
+   hear it, each with the width it needs. */
+.foot{margin-top:auto;padding-top:1.5rem;display:flex;flex-direction:column;align-items:flex-start;
+  gap:1.4rem;border-top:1px solid var(--line)}
 .form{display:flex;align-items:center;gap:.85rem;margin:0;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase}
 .form img{width:2.6rem;height:2.6rem;object-fit:cover;flex:none}
 .form b{font-weight:600;color:var(--ink)}
-.listen{display:flex;flex-wrap:wrap;gap:.6rem}
-.yt{display:inline-block;padding:.66rem 1.2rem;border:1px solid var(--ink);text-decoration:none;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
+.listen{display:flex;flex-wrap:wrap;gap:.55rem}
+.yt{display:inline-block;padding:.62rem 1rem;border:1px solid var(--ink);text-decoration:none;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
 .yt:hover{background:var(--red);border-color:var(--red);color:var(--paper)}
 .art{position:relative;margin:2.2rem .4rem 3.4rem 0;min-width:0;align-self:start}
 .art::before{content:"";position:absolute;right:-1.6rem;top:-1.6rem;width:58%;height:70%;background:var(--red);opacity:.16}
 .art::after{content:"";position:absolute;left:-1.3rem;bottom:-1.4rem;width:5.4rem;height:5.4rem;border-left:.9rem solid var(--ink);border-bottom:.9rem solid var(--ink)}
 .art img{position:relative;width:100%;max-width:840px;aspect-ratio:1;object-fit:cover;margin-left:auto;box-shadow:0 30px 60px -30px rgba(28,26,23,.45)}
 footer{grid-area:foot;padding:1.2rem 2.6rem 1.6rem;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);letter-spacing:.06em}
-footer a{color:var(--ink-soft)}
+footer a{color:var(--ink-soft)}footer a:hover{color:var(--red)}
 .lost{padding:6rem 2rem;max-width:40rem;margin:0 auto}.lost .n{color:var(--red);letter-spacing:.34em;margin:0}.lost h1{font-weight:400;letter-spacing:.2em;text-transform:uppercase}
 /* The wall gave up its fourth column at about 1340px, which is a laptop. Hold four across
    down to where the tiles would get small, then three, then two on a phone. Wider than this
