@@ -70,7 +70,7 @@ body.wall-page{grid-template-columns:var(--rail) minmax(0,1fr);grid-template-are
 /* panel: the release itself. What it is, what it says, what it is about, who recorded it,
    where to hear it, with the artwork holding the right. */
 .panel{grid-area:panel;padding:3.4rem 2.4rem 2rem 3.4rem;min-width:0}
-.rec{display:grid;grid-template-columns:minmax(17rem,38fr) minmax(0,62fr);gap:3rem;align-items:stretch}
+.rec{display:grid;grid-template-columns:minmax(17rem,44fr) minmax(0,56fr);gap:2.4rem;align-items:stretch}
 .text{min-width:0;display:flex;flex-direction:column;padding-bottom:3.4rem}
 .meta{margin:0;display:flex;gap:.6rem;align-items:baseline;font-size:.74rem;letter-spacing:.24em}
 .meta .hp{color:var(--red)}.meta .code{color:var(--muted)}
@@ -85,14 +85,18 @@ body.wall-page{grid-template-columns:var(--rail) minmax(0,1fr);grid-template-are
 .quote+.blurb::before{content:"";display:block;width:2.2rem;height:1px;background:var(--line);margin:0 0 1.7rem}
 /* The credit and the listen buttons were sharing a row, which squeezed the buttons as soon
    as a release was on three platforms. They stack instead: who recorded it, then where to
-   hear it, each with the width it needs. */
+   hear it, each with the width it needs.
+   Where to hear it is one line. A release on four platforms was breaking into two rows of
+   two, which reads as two kinds of link rather than one list, so the text column takes a
+   larger share of the panel and the buttons trim their own chrome as it narrows. The wrap
+   is left on as a last resort: a fifth and sixth platform will one day need it. */
 .foot{margin-top:auto;padding-top:1.5rem;display:flex;flex-direction:column;align-items:flex-start;
   gap:1.4rem;border-top:1px solid var(--line)}
 .form{display:flex;align-items:center;gap:.85rem;margin:0;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase}
 .form img{width:2.6rem;height:2.6rem;object-fit:cover;flex:none}
 .form b{font-weight:600;color:var(--ink)}
-.listen{display:flex;flex-wrap:wrap;gap:.55rem}
-.yt{display:inline-block;padding:.62rem 1rem;border:1px solid var(--ink);text-decoration:none;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.listen{display:flex;flex-wrap:wrap;gap:.5rem}
+.yt{display:inline-block;padding:.58rem .85rem;border:1px solid var(--ink);text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
 .yt:hover{background:var(--red);border-color:var(--red);color:var(--paper)}
 .art{position:relative;margin:2.2rem .4rem 3.4rem 0;min-width:0;align-self:start}
 .art::before{content:"";position:absolute;right:-1.6rem;top:-1.6rem;width:58%;height:70%;background:var(--red);opacity:.16}
@@ -105,6 +109,9 @@ footer a{color:var(--ink-soft)}footer a:hover{color:var(--red)}
    down to where the tiles would get small, then three, then two on a phone. Wider than this
    the track sizing keeps its own counsel and fits as many as the artwork deserves. */
 @media(max-width:1340px){.tiles{grid-template-columns:repeat(4,1fr);gap:1.6rem 1.2rem}}
+/* Under a laptop width the panel cannot hold four full-sized buttons on one line, so they
+   give up tracking and padding rather than the line. */
+@media(max-width:1480px){.yt{padding:.5rem .62rem;font-size:.67rem;letter-spacing:.07em}.listen{gap:.38rem}}
 @media(max-width:1040px){.tiles{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:1180px){.rec{grid-template-columns:1fr}.text{max-width:46rem;padding-bottom:0}.foot{margin-top:0}.art{margin:0 1rem 3rem 0}.art img{margin-left:0;max-width:620px}.panel{padding:3.4rem 2.2rem 2rem}}
 @media(max-width:899px){
