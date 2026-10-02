@@ -1,0 +1,22 @@
+/* Selected v8 artwork with the user's refined track-information layout. */
+.scene-themed .scene-card .release-heading{margin-bottom:76px}
+.scene-themed .scene-card .brand{letter-spacing:.24em}
+.scene-themed .scene-card h1{font-size:64px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;line-height:1.1}
+.scene-themed .scene-card .song{margin-top:10px;font-size:18px;letter-spacing:.36em;line-height:1.5}
+.scene-themed .scene-card .rule{width:40px;margin:22px 0 28px}
+.scene-themed .scene-card .quote{font-size:21px;line-height:1.5;margin-bottom:30px}
+.scene-themed .scene-card .play-button{gap:18px;margin:0 0 20px;color:var(--ink);text-align:left}
+.scene-themed .scene-card .play-circle{width:64px;height:64px;flex:none}
+.scene-themed .scene-card .play-glyph{border-top-width:9px;border-bottom-width:9px;border-left-width:14px}
+.play-caption{display:flex;flex-direction:column;gap:4px}
+.play-caption b{font:500 11px/1.5 var(--sans);letter-spacing:.2em}
+.play-caption small{font:400 11px/1.5 var(--sans);letter-spacing:.14em;color:var(--muted);font-variant-numeric:tabular-nums}
+.scene-themed .scene-card .listen{gap:14px;margin:0 0 14px}
+.scene-themed .scene-card .listen a,.scene-themed .scene-card .listen a:first-child{width:44px;justify-content:center}
+.scene-themed .scene-card .listen a+a::before{display:none}
+.scene-themed .scene-card .platform-youtube{--icon:url('../assets/icons/youtube-brand-v1.png');width:34px;height:25px;-webkit-mask-size:contain;mask-size:contain}
+.scene-themed .scene-card .platform-spotify{--icon:url('../assets/icons/spotify-brand-v1.png');width:30px;height:30px;-webkit-mask-size:contain;mask-size:contain}
+.scene-themed .scene-card .platform-apple{--icon:url('../assets/icons/apple-brand-v1.png');width:28px;height:32px;-webkit-mask-size:contain;mask-size:contain}
+.scene-themed .scene-card .identity{margin:0;padding:18px 0 0;border-top:1px solid var(--line);font-size:11px;letter-spacing:.2em}
+@media(max-width:1099px){.scene-themed .scene-card .release-heading{margin-bottom:40px}}
+@media(max-width:720px){.scene-themed .scene-card h1{font-size:60px;letter-spacing:.18em}.scene-themed .scene-card .song{letter-spacing:.3em}.scene-themed .scene-card .quote{font-size:22px}}

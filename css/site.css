@@ -1,142 +1,198 @@
-/* v5: one screen. Ivory paper, thin tracked serif, one red. Layout follows the Fragments
-   mockup: a fixed rail at the left edge, the numbered list, then the recording panel with
-   the cover run large and offset. No SVG anywhere: the marks are unicode, the rules are
-   borders, the collage blocks behind the cover are pseudo-elements. Form colours come in
-   through --c (primary) and --a (accent) set inline from personas.json. */
-:root{--paper:#efece5;--paper-2:#e7e2d8;--ink:#1c1a17;--ink-soft:#4b463f;--muted:#8d867a;--red:#b8412f;--line:#d6d0c3;--rail:4.5rem;
-  --serif:"Cormorant Garamond","Times New Roman",serif;--jp:"Noto Serif JP","Hiragino Mincho ProN",serif;
-  /* Cormorant is a display face: beautiful at 40px, thin and small eyed at 16. Running text
-     uses its sturdier cousin, which keeps the page in the same family while carrying more
-     ink per letter. */
-  --read:"EB Garamond","Cormorant Garamond",serif;--ink-read:#3f3a34}
-*{box-sizing:border-box}html{background:var(--paper)}
-body{margin:0;min-height:100vh;font-family:var(--serif);color:var(--ink);font-size:18px;line-height:1.5;
-  background:radial-gradient(120% 90% at 20% 0%,rgba(255,255,255,.55),transparent 60%),radial-gradient(90% 80% at 100% 100%,rgba(120,100,70,.10),transparent 60%),var(--paper);
-  display:grid;grid-template-columns:var(--rail) clamp(13rem,15vw,15rem) minmax(0,1fr);grid-template-rows:1fr auto;grid-template-areas:"rail list panel" "rail foot foot"}
-a{color:inherit}img{display:block;max-width:100%;height:auto}
-.skip{position:absolute;left:-999px;top:0}.skip:focus{left:1rem;background:var(--ink);color:var(--paper);padding:.4rem .8rem;z-index:9}
-.jp{font-family:var(--jp)}
-/* rail */
-.rail{grid-area:rail;position:sticky;top:0;height:100vh;border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:1.6rem 0 1.4rem;font-size:.66rem;letter-spacing:.24em}
-.rail .brand{text-decoration:none;text-align:center;line-height:1.5;font-weight:600}
-.rail .mark{display:block;color:var(--red);font-size:1.15rem;letter-spacing:0;margin-bottom:.9rem}
-.rail .dash{display:block;width:1.2rem;height:2px;background:var(--red);margin:1rem auto 0}
-.rail .spine{writing-mode:vertical-rl;color:var(--muted);letter-spacing:.34em;margin:auto 0;font-size:.62rem}
-.rail .xx{color:var(--red);font-size:.9rem;line-height:1.9;letter-spacing:0}
-/* home: the wall of artwork. One tile per release, newest first. */
-body.wall-page{grid-template-columns:var(--rail) minmax(0,1fr);grid-template-areas:"rail wall" "rail foot"}
-.wall{grid-area:wall;padding:3.4rem 3rem 2rem 3.2rem;min-width:0}
-.wall h1{font-size:clamp(1.6rem,2.6vw,2.4rem);font-weight:500;letter-spacing:.34em;margin:0 0 2.4rem}
-.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:2.2rem 1.8rem}
-.tile{text-decoration:none;color:inherit;display:block}
-.tile .shot{display:block;position:relative}
-/* not out yet: the artwork is there, the record is not. Greyed back so the released ones
-   carry the colour on the wall, with the state said in words as well as in the treatment. */
-.tile.soon img{filter:grayscale(.85) contrast(.92);opacity:.5}
-.tile.soon:hover img,.tile.soon:focus-visible img{filter:grayscale(.45) contrast(.96);opacity:.72}
-.soonmark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap;
-  background:rgba(239,236,229,.9);color:var(--ink-soft);border:1px solid var(--line);
-  padding:.3rem .7rem;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase}
-.tile.soon .t,.tile.soon .n,.tile.soon .f{color:var(--muted)}
-.tile.soon:hover .t,.tile.soon:focus-visible .t{color:var(--ink-soft)}
-.soontag{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
-  border:1px solid var(--line);padding:.14rem .5rem}
-.tile img,.tile .noart{width:100%;aspect-ratio:1;object-fit:cover;background:var(--paper-2);
-  box-shadow:0 18px 34px -24px rgba(28,26,23,.5);transition:transform .35s ease,box-shadow .35s ease}
-.tile:hover img,.tile:focus-visible img{transform:translateY(-4px);box-shadow:0 26px 42px -24px rgba(28,26,23,.55)}
-.tile .cap{display:flex;flex-wrap:wrap;gap:.15rem .7rem;align-items:baseline;
-  margin-top:.85rem;padding-bottom:.5rem;border-bottom:1px solid var(--line);font-size:.86rem}
-.tile .t{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}.tile .f{margin-left:auto}
-.tile .n{letter-spacing:.2em;font-size:.74rem;color:var(--ink-soft)}
-.tile .t{letter-spacing:.2em;text-transform:uppercase}
-.tile .f{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.tile:hover .t,.tile:focus-visible .t{color:var(--red)}
-.tile:hover .cap,.tile:focus-visible .cap{border-bottom-color:var(--c)}
-.tile:focus-visible{outline:none}
-/* list: a slim index down the side. The release is the page; choosing another is secondary. */
-.list{grid-area:list;padding:3.6rem 1.1rem 2rem 1.6rem;border-right:1px solid var(--line)}
-.list h1{font-size:.7rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin:0 0 1.2rem}
-.list h1 a{text-decoration:none}.list h1 a:hover{color:var(--red)}
-.list ol{list-style:none;margin:0;padding:0}
-.list li a{display:grid;grid-template-columns:2rem 1fr;gap:.5rem;align-items:baseline;
-  padding:.5rem .3rem .5rem .45rem;text-decoration:none;border-left:2px solid transparent}
-.list li.on a{border-left-color:var(--red)}
-.list li .n{font-size:.68rem;letter-spacing:.14em;color:var(--muted)}.list li.on .n{color:var(--red)}
-.list .t{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);overflow-wrap:normal;word-break:keep-all}
-.list li.on .t{color:var(--red)}
-.list li a:hover .t,.list li a:focus-visible .t{color:var(--red)}
-.list li a:hover{background:rgba(0,0,0,.02)}
-.list a:focus-visible{outline:1px solid var(--red)}
-/* panel: the release itself. What it is, what it says, what it is about, who recorded it,
-   where to hear it, with the artwork holding the right. */
-.panel{grid-area:panel;padding:3.4rem 2.4rem 2rem 3.4rem;min-width:0}
-.rec{display:grid;grid-template-columns:minmax(17rem,44fr) minmax(0,56fr);gap:2.4rem;align-items:stretch}
-.text{min-width:0;display:flex;flex-direction:column;padding-bottom:3.4rem}
-.meta{margin:0;display:flex;gap:.6rem;align-items:baseline;font-size:.74rem;letter-spacing:.24em}
-.meta .hp{color:var(--red)}.meta .code{color:var(--muted)}
-.rec h2{margin:.7rem 0 0;font-size:clamp(1.7rem,2.6vw,3rem);font-weight:400;letter-spacing:.16em;text-transform:uppercase;line-height:1.15;overflow-wrap:anywhere}
-.rule{display:block;width:2.4rem;height:2px;background:var(--red);margin:1rem 0 0}
-.quote{margin:2.1rem 0 2.4rem;padding:0;border:0}
-.quote .ja{margin:0;font-family:var(--jp);font-size:1.1rem;letter-spacing:.12em;line-height:1.95;color:var(--ink)}
-.quote .en{margin:1.1rem 0 0;font-family:var(--read);font-size:1.02rem;letter-spacing:.01em;line-height:1.62;color:var(--ink-read);font-style:italic}
-.blurb{font-family:var(--read);font-size:1.02rem;line-height:1.68;color:var(--ink-read);margin:2.1rem 0 2.4rem;max-width:40ch}
-/* The lyric and the Resonance are two different voices, the song's and the writing about it.
-   A hairline says so without a heading. Only drawn when a quote actually precedes it. */
-.quote+.blurb::before{content:"";display:block;width:2.2rem;height:1px;background:var(--line);margin:0 0 1.7rem}
-/* The credit and the listen buttons were sharing a row, which squeezed the buttons as soon
-   as a release was on three platforms. They stack instead: who recorded it, then where to
-   hear it, each with the width it needs.
-   Where to hear it is one line. A release on four platforms was breaking into two rows of
-   two, which reads as two kinds of link rather than one list, so the text column takes a
-   larger share of the panel and the buttons trim their own chrome as it narrows. The wrap
-   is left on as a last resort: a fifth and sixth platform will one day need it. */
-.foot{margin-top:auto;padding-top:1.5rem;display:flex;flex-direction:column;align-items:flex-start;
-  gap:1.4rem;border-top:1px solid var(--line)}
-.form{display:flex;align-items:center;gap:.85rem;margin:0;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase}
-.form img{width:2.6rem;height:2.6rem;object-fit:cover;flex:none}
-.form b{font-weight:600;color:var(--ink)}
-.listen{display:flex;flex-wrap:wrap;gap:.5rem}
-.yt{display:inline-block;padding:.58rem .85rem;border:1px solid var(--ink);text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
-.yt:hover{background:var(--red);border-color:var(--red);color:var(--paper)}
-.art{position:relative;margin:2.2rem .4rem 3.4rem 0;min-width:0;align-self:start}
-.art::before{content:"";position:absolute;right:-1.6rem;top:-1.6rem;width:58%;height:70%;background:var(--red);opacity:.16}
-.art::after{content:"";position:absolute;left:-1.3rem;bottom:-1.4rem;width:5.4rem;height:5.4rem;border-left:.9rem solid var(--ink);border-bottom:.9rem solid var(--ink)}
-.art img{position:relative;width:100%;max-width:840px;aspect-ratio:1;object-fit:cover;margin-left:auto;box-shadow:0 30px 60px -30px rgba(28,26,23,.45)}
-footer{grid-area:foot;padding:1.2rem 2.6rem 1.6rem;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);letter-spacing:.06em}
-footer a{color:var(--ink-soft)}footer a:hover{color:var(--red)}
-.lost{padding:6rem 2rem;max-width:40rem;margin:0 auto}.lost .n{color:var(--red);letter-spacing:.34em;margin:0}.lost h1{font-weight:400;letter-spacing:.2em;text-transform:uppercase}
-/* The wall gave up its fourth column at about 1340px, which is a laptop. Hold four across
-   down to where the tiles would get small, then three, then two on a phone. Wider than this
-   the track sizing keeps its own counsel and fits as many as the artwork deserves. */
-@media(max-width:1340px){.tiles{grid-template-columns:repeat(4,1fr);gap:1.6rem 1.2rem}}
-/* Under a laptop width the panel cannot hold four full-sized buttons on one line, so they
-   give up tracking and padding rather than the line. */
-@media(max-width:1480px){.yt{padding:.5rem .62rem;font-size:.67rem;letter-spacing:.07em}.listen{gap:.38rem}}
-@media(max-width:1040px){.tiles{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:1180px){.rec{grid-template-columns:1fr}.text{max-width:46rem;padding-bottom:0}.foot{margin-top:0}.art{margin:0 1rem 3rem 0}.art img{margin-left:0;max-width:620px}.panel{padding:3.4rem 2.2rem 2rem}}
-@media(max-width:899px){
-  .wall{padding:1.8rem 1rem 1rem}.wall h1{margin-bottom:1.4rem}
-  .tiles{grid-template-columns:repeat(2,1fr);gap:1.3rem .9rem}
-  .tile .cap{font-size:.78rem;gap:.1rem .5rem;margin-top:.6rem}
-  .tile .t{letter-spacing:.12em}.tile .f{display:none}
-  body.wall-page{display:block}
-  body{display:grid;grid-template-columns:100%;grid-template-rows:auto auto auto auto;grid-template-areas:"rail" "panel" "list" "foot";font-size:17px}
-  .rail{position:static;height:auto;flex-direction:row;justify-content:space-between;padding:1rem 1rem;border-right:0;border-bottom:1px solid var(--line)}
-  .rail .brand{text-align:left;line-height:1.3}.rail .mark{display:inline;margin:0 .5rem 0 0}.rail .brand br{display:none}.rail .dash,.rail .spine{display:none}.rail .xx{line-height:1;letter-spacing:.3em}.rail .xx br{display:none}
-  .panel{padding:2rem 1rem 1rem}
-  /* On a phone the artwork comes before the words: title, cover, where to listen, then the
-     quote and the Resonance, with the rest of the catalog under them. `display: contents`
-     lets the reading column's children be ordered against the figure directly. */
-  .rec{display:flex;flex-direction:column;gap:0}
-  .text{display:contents}
-  .meta{order:1}.rec h2{order:2}.rule{order:3}.art{order:4}.foot{order:5}.quote{order:6}.blurb{order:7}
-  .rule{margin:.9rem 0 0}
-  .art{margin:1.6rem 1.4rem 0 .2rem}.art::before{right:-1rem;top:-1rem}
-  .foot{margin:2.6rem 0 0}
-  .quote{margin:2.2rem 0 0}
-  .quote+.blurb::before{margin:1.7rem 0}
-  .blurb{margin:1.8rem 0 .5rem}
-  .list{border-right:0;padding:1.6rem 1rem 1rem;border-top:1px solid var(--line)}.list h1{margin-bottom:1.2rem}
-  .list li a{padding:.62rem .3rem}.list .t{font-size:.9rem}
-  footer{padding:1rem}
+/* v8: paper, clear ink, and room for the artwork. Sources, not generated CSS. */
+:root{
+  --paper:#faf6ed;--ink:#302d29;--muted:#6c665e;--line:#ded8cc;
+  --serif:"Cormorant Garamond",Georgia,serif;--sans:"Jost",system-ui,sans-serif;
+  --accent:#64574b;--hue:#c5b9a7;--radius:24px;
 }
+*{box-sizing:border-box}
+html{color-scheme:light;scroll-behavior:smooth}
+body{margin:0;background:#ede8de;color:var(--ink);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.platform-youtube{--icon:url('../assets/icons/youtube.png')}
+.platform-spotify{--icon:url('../assets/icons/spotify.png')}
+.platform-apple{--icon:url('../assets/icons/apple.png')}
+a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:4px;border-radius:8px}
+button{font:inherit;cursor:pointer}
+.play-button{display:flex;align-items:center;gap:12px;margin:0 0 20px;padding:0;border:0;background:none;color:var(--accent);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.play-circle{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--accent);color:var(--paper);transition:transform .2s}
+.play-button:hover .play-circle{transform:scale(1.06)}
+.play-glyph{width:0;height:0;margin-left:3px;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:9px solid currentColor}
+.spotify-dock{position:fixed;z-index:10;right:24px;bottom:24px;width:360px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 48px);overflow:auto;padding:0 10px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 32px #0003}
+.spotify-dock[hidden]{display:none}
+.spotify-dock-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;letter-spacing:.04em;padding-left:4px}
+.spotify-close{flex:none;width:44px;height:44px;border:0;background:none;color:var(--ink);font-size:24px}
+.spotify-mount{width:100%}
+.spotify-mount iframe{display:block;border:0;border-radius:12px;width:100%;height:152px}
+.spotify-fallback{display:flex;align-items:center;min-height:44px;padding-left:4px;font-size:10px;letter-spacing:.08em;color:var(--muted)}
+.spotify-fallback:hover{text-decoration:underline}
+@media(max-width:720px){.spotify-dock{right:12px;bottom:max(12px,env(safe-area-inset-bottom))}}
+img{display:block;max-width:100%}
+.skip{position:fixed;z-index:20;left:16px;top:-100px;padding:12px 20px;background:var(--paper)}
+.skip:focus{top:16px}
+.scene{position:fixed;inset:0;z-index:-1}
+.background{width:100%;height:100%;object-fit:cover;object-position:center}
+.scene picture{display:block;width:100%;height:100%}
+.cloud-layer{position:fixed;top:0;right:0;z-index:0;width:max(620px,46vw);height:max(680px,78vh);max-width:none;
+  object-fit:fill;pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 28%),linear-gradient(0deg,transparent,#000 24%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 28%),linear-gradient(0deg,transparent,#000 24%);mask-composite:intersect}
+.ink-dark{--on:var(--scene-ink,#40362d);--on-muted:var(--scene-muted,#655747);--on-line:var(--line,#40362d45)}
+.cloud-layer img{width:100%;height:100%;object-fit:fill;max-width:none}
+.cloud-layer.mirrored img{transform:scaleX(-1)}
+.ink-light{--on:#faf6ed;--on-muted:#eee8dd;--on-line:#faf6ed60}
+.header{position:absolute;top:24px;right:32px;z-index:3;display:flex;align-items:center;justify-content:flex-end;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;min-height:48px;font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.brand span{font-size:20px;color:var(--accent)}
+.header nav{display:flex;align-items:center;gap:24px}
+.header nav a{display:inline-flex;align-items:center;min-height:48px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-muted)}
+.header nav a:hover,.header nav .selected{color:var(--on)}
+.header nav .selected{box-shadow:inset 0 -2px var(--accent)}
+.header a:focus-visible,.catalog a:focus-visible{outline-color:var(--on)}
+.layout{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:48px;padding:32px 32px 80px}
+.paper{background:var(--paper);border:1px solid #ffffffa8;border-radius:var(--radius);
+  box-shadow:0 20px 56px -24px #29231e65,0 2px 8px #29231e10}
+.release{width:360px;flex:none;padding:32px;background:
+  linear-gradient(155deg,color-mix(in srgb,var(--hue) 6%,var(--paper)),var(--paper) 58%)}
+.scene-card{display:flex;flex-direction:column;min-height:min(820px,calc(100svh - 96px));
+  background:linear-gradient(155deg,color-mix(in srgb,var(--hue) 12%,transparent),transparent 65%),
+    color-mix(in srgb,var(--paper) 73%,transparent);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-color:#fff8;box-shadow:0 20px 56px -32px #6f25293b,0 1px 8px #6f25290a}
+.scene-card .release-heading{margin-bottom:40px}
+.scene-card .brand{font-size:11px;letter-spacing:.2em}
+.identity{margin:0 0 20px;font-size:11px;letter-spacing:.18em;color:var(--accent)}
+.identity span{padding:0 8px;opacity:.65}
+.scene-card h1{font-size:clamp(80px,7.4vw,124px);font-weight:400;letter-spacing:-.03em}
+.scene-card .song{font-size:24px;letter-spacing:.21em}
+.scene-card .quote{font-size:23px;line-height:1.5}
+.scene-card .rule{margin:24px 0 16px;width:40px}
+.scene-card .listen{margin-top:8px;color:var(--accent)}
+.scene-card .listen a{color:var(--accent);width:64px}
+.scene-card .listen a:first-child{width:48px}
+.scene-card .listen a:hover{color:var(--ink)}
+.scene-card .facts{margin-top:auto;gap:8px;padding:16px 0}
+.scene-card .facts div{justify-content:flex-start}
+.scene-card .facts dt{width:80px;flex:none;font-size:10px;letter-spacing:.2em}
+.scene-card .facts dd{text-align:left;font:400 17px/1.5 var(--serif);letter-spacing:.04em}
+.related{display:flex;align-items:center;gap:16px;min-height:80px;border-top:1px solid var(--line);padding-top:20px;margin-top:8px}
+.related img{flex:none;width:64px;height:64px;object-fit:cover;border:1px solid var(--line)}
+.related-body{display:flex;flex:1;flex-direction:column;min-width:0}
+.related small{font-size:9px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
+.related b{font:400 21px/1.4 var(--serif);color:var(--accent)}
+.related em{font:400 15px/1.3 var(--serif);color:var(--muted)}
+.related:hover b{text-decoration:underline;text-underline-offset:4px}
+.release-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:32px}
+.release .brand{font-size:10px;letter-spacing:.16em;gap:8px}
+.eyebrow{margin:0;font-size:10px;font-weight:500;letter-spacing:.19em;text-transform:uppercase;color:var(--muted)}
+.edition{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+h1{margin:0;color:var(--accent);font:500 clamp(56px,5vw,76px)/.95 var(--serif);letter-spacing:-.03em}
+.song{margin:12px 0 0;font:400 22px/1.3 var(--serif);letter-spacing:.14em;text-transform:uppercase;overflow-wrap:anywhere}
+.rule{display:block;width:32px;height:2px;margin:24px 0;background:var(--accent)}
+.quote{margin:0 0 24px;font:italic 400 21px/1.45 var(--serif);color:var(--ink)}
+.quote span{display:block}
+.listen{display:flex;flex-wrap:wrap;align-items:center;margin-bottom:24px;gap:0}
+.listen a{position:relative;display:inline-flex;align-items:center;justify-content:center;width:56px;min-height:48px;color:var(--ink);font-size:12px}
+.listen a:first-child{width:44px;justify-content:flex-start}
+.listen a+a::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:1px;background:var(--line)}
+.listen a:hover{color:var(--accent)}
+.platform-icon{display:block;flex:none;width:28px;height:28px;background:currentColor;-webkit-mask:var(--icon) center/contain no-repeat;mask:var(--icon) center/contain no-repeat}
+.platform-spotify{-webkit-mask-size:24px 24px;mask-size:24px 24px}
+.availability{margin:0 0 24px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.facts{display:grid;gap:8px;margin:0;padding:24px 0;border-top:1px solid var(--line)}
+.facts div{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.facts dt{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:0;font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.neighbors{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:16px}
+.neighbors a{display:flex;flex-direction:column;justify-content:center;min-height:48px;min-width:0}
+.neighbors a:last-child:not(:first-child){text-align:right}
+.neighbor-label{font-size:10px;color:var(--muted)}
+.neighbor-title{font:500 20px/1.4 var(--serif);overflow-wrap:anywhere}
+.neighbors a:hover .neighbor-title{color:var(--accent);text-decoration:underline;text-underline-offset:4px}
+.catalog{width:320px;flex:none;padding:0;margin-top:112px;color:var(--on)}
+.catalog-heading{display:flex;justify-content:space-between;align-items:center;padding:8px 12px 16px}
+.catalog h2{margin:0;font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase}
+.catalog-heading>span{font-size:11px;color:var(--on-muted)}
+.catalog ol{list-style:none;padding:0 0 0 12px;margin:0;border-left:1px solid var(--on-line)}
+.catalog a{display:grid;grid-template-columns:24px minmax(0,1fr) 32px;gap:12px;align-items:center;min-height:48px;padding:8px 16px;border-radius:999px}
+.number,.duration{font-size:11px;font-variant-numeric:tabular-nums;color:var(--on-muted)}
+.track-title{font:400 17px/1.3 var(--serif);overflow-wrap:anywhere}
+.duration{text-align:right}
+.catalog a:hover{background:color-mix(in srgb,var(--hue) 12%,transparent)}
+.catalog a[aria-current]{background:color-mix(in srgb,var(--hue) 30%,var(--paper));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 14%,transparent)}
+.catalog a[aria-current] .track-title{color:var(--accent)}
+.catalog a[aria-current] .number,.catalog a[aria-current] .duration{color:var(--ink)}
+.footer{position:fixed;bottom:20px;right:32px;display:flex;align-items:center;gap:12px;padding:8px 16px;border-radius:12px;background:var(--paper);font-size:12px;color:var(--muted)}
+.footer span{font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+@media(min-width:1600px){.layout{padding:32px 48px 80px}.header{top:32px;right:48px}.release{width:384px;padding:40px}.catalog{width:344px}}
+@media(max-width:1099px){.layout{gap:24px;padding:24px}.header{top:16px;right:24px}.release{width:340px;padding:28px}.catalog{width:280px}.header nav{gap:16px}}
+@media(max-width:720px){
+  .cloud-layer{position:absolute;width:76vw;height:220px;min-width:0}
+  .scene{position:absolute;height:440px;inset:0 0 auto}
+  .background{object-position:var(--mobile-focus,72% center)}
+  .header{top:12px;right:24px;gap:12px}
+  .brand{font-size:10px;letter-spacing:.12em;gap:8px}
+  .brand span{font-size:18px}
+  .header nav{gap:0}.header nav .profile{display:none}
+  .header nav a{min-height:48px;padding:0 8px}
+  .layout{position:relative;display:flex;flex-direction:column;gap:16px;padding:0 12px 24px;margin-top:360px}
+  .release,.catalog{width:100%;padding:24px;border-radius:20px}
+  .scene-card{min-height:0}
+  .scene-card .release-heading{margin-bottom:24px}
+  .scene-card h1{font-size:80px}
+  .scene-card .quote{font-size:23px}
+  .scene-card .facts{margin-top:8px}
+  .scene-themed .scene{height:480px}
+  .scene-themed .layout{margin-top:400px}
+  .release-heading{margin-bottom:24px}
+  h1{font-size:64px}.song{font-size:22px}
+  .quote{font-size:23px}
+  .catalog{padding:16px 12px;margin-top:0;--on:var(--ink);--on-muted:var(--muted);--on-line:var(--line)}
+  .catalog a{min-height:48px}
+  .catalog .track-title{font-size:18px}
+  .footer{position:static;justify-content:center;background:none;margin:0 12px 24px;padding:0}
+}
+.scene-themed .background{object-position:var(--scene-focus,25% center)}
+.scene-themed{background:var(--page,#f8e8d9)}
+.track-texture{position:fixed;left:0;top:0;z-index:0;width:var(--track-width,480px);height:100vh;max-width:none;object-fit:fill;pointer-events:none}
+.scene-themed .cloud-layer{width:max(420px,32vw);height:var(--cloud-height,max(500px,56vh))}
+.scene-themed .cloud-layer.mirrored{width:max(520px,36vw)}
+.cloud-layer.mirrored::before{content:"";position:absolute;inset:0;background:var(--paper)}
+.cloud-layer.mirrored img{position:relative;opacity:.35}
+.scene-themed .scene-card{width:280px;padding:22px;min-height:0;
+  background:none;border:0;border-radius:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.scene-themed .scene-card .release-heading{margin-bottom:20px}
+.scene-themed .scene-card h1{font-size:78px}
+.scene-themed .scene-card .song{font-size:18px}
+.scene-themed .scene-card .quote{font-size:19px;line-height:1.4;margin-bottom:12px}
+.scene-themed .scene-card .facts{margin-top:0;padding:14px 0;gap:4px}
+.scene-themed .scene-card .listen{margin-bottom:16px}
+.scene-themed .related{padding-top:16px;min-height:72px;gap:12px}
+.scene-themed .related img{width:56px;height:56px}
+.scene-themed .catalog{width:280px;margin-top:64px}
+.scene-themed .catalog-heading{padding:6px 12px 12px}
+.scene-themed .catalog ol{position:relative;border-right:1px solid var(--on-line);padding:4px 5px}
+.scene-themed .catalog ol::before,.scene-themed .catalog ol::after{content:"";position:absolute;width:5px;height:5px;background:var(--accent);transform:rotate(45deg);opacity:.6;pointer-events:none}
+.scene-themed .catalog ol::before{left:-3px;top:32px}
+.scene-themed .catalog ol::after{right:-3px;bottom:32px}
+.scene-themed .catalog a{grid-template-columns:20px minmax(0,1fr) 28px 8px;gap:8px;padding:7px 10px;min-height:44px}
+.scene-themed .catalog a::after{content:"";width:2px;height:2px;background:var(--accent);border-radius:50%;box-shadow:4px 0 var(--accent);opacity:.65}
+.scene-themed .catalog .track-title{font-size:16px}
+.scene-themed .catalog .number,.scene-themed .catalog .duration{font-size:10px}
+@media(max-width:1099px){
+  .scene-themed .scene{position:absolute;height:560px;inset:0 0 auto}
+  .scene-themed .background{object-position:var(--mobile-focus)}
+  .scene-themed .cloud-layer{position:absolute;width:62vw;height:130px;min-width:0}
+  .scene-themed .cloud-layer.mirrored{width:62vw}
+  .scene-themed .layout{flex-direction:column;align-items:center;gap:16px;padding:0 16px 24px;margin-top:560px}
+  .scene-themed .track-texture{display:none}
+  .scene-themed .scene-card,.scene-themed .catalog{width:100%;max-width:480px}
+  .scene-themed .catalog{padding:16px 12px;margin-top:0;--on:var(--ink);--on-muted:var(--muted);--on-line:var(--line)}
+}
+@media(max-width:720px){
+  .scene-themed .scene{height:480px}
+  .scene-themed .layout{margin-top:480px;padding:0 12px 24px}
+  .scene-themed .scene-card{padding:24px}
+  .scene-themed .scene-card h1{font-size:80px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}summary span{transition:none}}

@@ -1,0 +1,124 @@
+{
+  "revision": "3b255ab43baa",
+  "records": [
+    {
+      "key": "wish::weightless",
+      "hp": "HP-007",
+      "title": "Weightless",
+      "form": "Wish",
+      "page": "wish/weightless/index.html",
+      "route": "wish/weightless/",
+      "legacyPage": "songs/hp-007.html"
+    },
+    {
+      "key": "echo::wake",
+      "hp": "HP-006",
+      "title": "Wake",
+      "form": "Echo",
+      "page": "echo/wake/index.html",
+      "route": "echo/wake/",
+      "legacyPage": "songs/hp-006.html"
+    },
+    {
+      "key": "flux::alone",
+      "hp": "HP-005",
+      "title": "Alone",
+      "form": "Flux",
+      "page": "flux/alone/index.html",
+      "route": "flux/alone/",
+      "legacyPage": "songs/hp-005.html"
+    },
+    {
+      "key": "aura::komorebi",
+      "hp": "HP-004",
+      "title": "Komorebi",
+      "form": "Aura",
+      "page": "aura/komorebi/index.html",
+      "route": "aura/komorebi/",
+      "legacyPage": "songs/hp-004.html"
+    },
+    {
+      "key": "rift::afterimage",
+      "hp": "HP-003",
+      "title": "Afterimage",
+      "form": "Rift",
+      "page": "rift/afterimage/index.html",
+      "route": "rift/afterimage/",
+      "legacyPage": "songs/hp-003.html"
+    },
+    {
+      "key": "luma::fragile",
+      "hp": "HP-002",
+      "title": "Fragile",
+      "form": "Luma",
+      "page": "luma/fragile/index.html",
+      "route": "luma/fragile/",
+      "legacyPage": "songs/hp-002.html"
+    },
+    {
+      "key": "hika::reach",
+      "hp": "HP-001",
+      "title": "Reach",
+      "form": "Hika",
+      "page": "hika/reach/index.html",
+      "route": "hika/reach/",
+      "legacyPage": "songs/hp-001.html"
+    }
+  ],
+  "selectedRevision": "2c8b5bc0af8d",
+  "selectedDesign": "v8",
+  "redirects": [
+    {
+      "route": "spotify/",
+      "url": "https://open.spotify.com/artist/3jeXw9niDn1blUazUsuwLZ"
+    },
+    {
+      "route": "apple/",
+      "url": "https://music.apple.com/us/artist/hikari-project/413431187"
+    },
+    {
+      "route": "youtube/",
+      "url": "https://www.youtube.com/@hikariproject.studio"
+    },
+    {
+      "route": "flux/alone/spotify/",
+      "url": "https://open.spotify.com/track/4u7mr7ZjANxRuM3RLuiP9f"
+    },
+    {
+      "route": "aura/komorebi/spotify/",
+      "url": "https://open.spotify.com/track/0duBWUyggIS9oz95Iszsq1"
+    },
+    {
+      "route": "aura/komorebi/apple/",
+      "url": "https://music.apple.com/us/album/komorebi-aura/6817420229?i=6817420230"
+    },
+    {
+      "route": "rift/afterimage/spotify/",
+      "url": "https://open.spotify.com/track/1OfNIxReINqyJB8laU4vYH"
+    },
+    {
+      "route": "rift/afterimage/apple/",
+      "url": "https://music.apple.com/us/album/afterimage-rift/6817025159?i=6817025160"
+    },
+    {
+      "route": "luma/fragile/spotify/",
+      "url": "https://open.spotify.com/track/1UHsMtdwecq9Q0lsaOIUev"
+    },
+    {
+      "route": "luma/fragile/apple/",
+      "url": "https://music.apple.com/us/album/fragile-luma/6816525571?i=6816525572"
+    },
+    {
+      "route": "hika/reach/spotify/",
+      "url": "https://open.spotify.com/track/1RkFdOaRfxBIbL2ijeppQV"
+    },
+    {
+      "route": "hika/reach/apple/",
+      "url": "https://music.apple.com/us/album/reach-hika/6816233371?i=6816233372"
+    },
+    {
+      "route": "listen/",
+      "url": "../index.html"
+    }
+  ]
+}
