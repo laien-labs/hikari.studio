@@ -1,5 +1,5 @@
 {
-  "revision": "d51a290952be",
+  "revision": "53b306296360",
   "records": [
     {
       "key": "wish::weightless",
@@ -132,5 +132,36 @@
       "route": "echo/wake/apple/",
       "url": "https://music.apple.com/us/album/wake-echo/6818537615?i=6818537616"
     }
-  ]
+  ],
+  "artworkUpdate": {
+    "source": "art/_review/weightless-website-20261003/approved-artwork.json",
+    "baselineRevision": "d51a290952be",
+    "keys": [
+      "wish::weightless"
+    ],
+    "changedPages": [
+      "index.html",
+      "wish/weightless/index.html"
+    ],
+    "assets": [
+      {
+        "key": "wish::weightless",
+        "property": "desktop",
+        "relative": "assets/bg/hp-007.jpg",
+        "sha256": "47181b17e9f2388057186078b343ad28f43dad9fc310c90a048a0ab8a989efa9"
+      },
+      {
+        "key": "wish::weightless",
+        "property": "mobile",
+        "relative": "assets/mobile/hp-007.jpg",
+        "sha256": "1690d050573c772b8b2c3649a33c290fc22c1ff45e3899750b1763a275ce7c13"
+      },
+      {
+        "key": "wish::weightless",
+        "property": "cover",
+        "relative": "assets/covers/hp-007.jpg",
+        "sha256": "0377bb9a1de4782b973a0b52c77078ad97e975b0211d6362f17618b74fbb85fa"
+      }
+    ]
+  }
 }
