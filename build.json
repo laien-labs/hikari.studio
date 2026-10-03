@@ -1,5 +1,5 @@
 {
-  "revision": "3b255ab43baa",
+  "revision": "d51a290952be",
   "records": [
     {
       "key": "wish::weightless",
@@ -119,6 +119,18 @@
     {
       "route": "listen/",
       "url": "../index.html"
+    },
+    {
+      "route": "echo/wake/youtube/",
+      "url": "https://youtu.be/ExxAkTr_hcY"
+    },
+    {
+      "route": "echo/wake/spotify/",
+      "url": "https://open.spotify.com/track/7tEitN03OHMOeu5hP1MSp8"
+    },
+    {
+      "route": "echo/wake/apple/",
+      "url": "https://music.apple.com/us/album/wake-echo/6818537615?i=6818537616"
     }
   ]
 }
