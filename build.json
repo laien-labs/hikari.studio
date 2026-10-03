@@ -1,5 +1,5 @@
 {
-  "revision": "a3fd0e05ac70",
+  "revision": "69724e378666",
   "records": [
     {
       "key": "wish::weightless",
@@ -139,6 +139,10 @@
     {
       "route": "wish/weightless/youtube/",
       "url": "https://youtu.be/Cz7V2j1IX2Y"
+    },
+    {
+      "route": "wish/weightless/spotify/",
+      "url": "https://open.spotify.com/track/3ScZ036u9RPmIduHrfPD6D"
     }
   ],
   "artworkUpdate": {
