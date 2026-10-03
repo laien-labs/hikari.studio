@@ -1,5 +1,5 @@
 {
-  "revision": "53b306296360",
+  "revision": "a3fd0e05ac70",
   "records": [
     {
       "key": "wish::weightless",
@@ -131,6 +131,14 @@
     {
       "route": "echo/wake/apple/",
       "url": "https://music.apple.com/us/album/wake-echo/6818537615?i=6818537616"
+    },
+    {
+      "route": "flux/alone/apple/",
+      "url": "https://music.apple.com/us/album/alone-flux/6817880956?i=6817880957"
+    },
+    {
+      "route": "wish/weightless/youtube/",
+      "url": "https://youtu.be/Cz7V2j1IX2Y"
     }
   ],
   "artworkUpdate": {
