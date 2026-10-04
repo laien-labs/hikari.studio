@@ -1,14 +1,37 @@
-// Load and control Spotify only after the listener presses Play.
-const trigger = document.querySelector('.play-button[data-spotify]');
-const dock = document.querySelector('.spotify-dock');
-if (trigger && dock) {
+// One on-demand Spotify controller survives release navigation.
+(() => {
+  let dock = document.querySelector('.spotify-dock');
+  if (!dock) {
+    dock = document.createElement('section');
+    dock.className = 'spotify-dock';
+    dock.id = 'spotify-player';
+    dock.hidden = true;
+    dock.setAttribute('aria-label', 'Spotify player');
+    dock.innerHTML = '<div class="spotify-dock-heading"><span></span><button class="spotify-close" type="button" aria-label="Close Spotify player">×</button></div><div class="spotify-mount"></div><a class="spotify-fallback" target="_blank" rel="noopener">Open in Spotify ↗</a>';
+    document.body.append(dock);
+  }
   const mount = dock.querySelector('.spotify-mount');
   const close = dock.querySelector('.spotify-close');
   let apiPromise;
   let controller;
   let generation = 0;
+  let active;
   let opening = false;
-
+  function syncTriggers() {
+    document.querySelectorAll('.play-button[data-spotify]').forEach(trigger => {
+      trigger.setAttribute('aria-expanded', String(!dock.hidden && trigger.dataset.spotify === active?.embed));
+    });
+  }
+  function trackFrom(trigger) {
+    try {
+      const url = new URL(trigger.dataset.spotify);
+      if (url.origin !== 'https://open.spotify.com' || !/^\/embed\/track\/[A-Za-z0-9]{22}$/.test(url.pathname)) return;
+      const recording = new URL(url.href);
+      recording.pathname = recording.pathname.replace('/embed', '');
+      return {embed:url.href, recording:recording.href, title:trigger.dataset.playerTitle,
+        label:trigger.closest('.release')?.querySelector('.song')?.textContent || 'Hikari Project'};
+    } catch { return; }
+  }
   function loadApi() {
     if (apiPromise) return apiPromise;
     const script = document.createElement('script');
@@ -16,58 +39,73 @@ if (trigger && dock) {
     script.async = true;
     apiPromise = new Promise((resolve, reject) => {
       const timeout = setTimeout(() => reject(new Error('Spotify controls unavailable')), 10000);
-      window.onSpotifyIframeApiReady = api => {
-        clearTimeout(timeout);
-        resolve(api);
-      };
-      script.onerror = () => {
-        clearTimeout(timeout);
-        reject(new Error('Spotify controls unavailable'));
-      };
+      window.onSpotifyIframeApiReady = api => { clearTimeout(timeout); resolve(api); };
+      script.onerror = () => { clearTimeout(timeout); reject(new Error('Spotify controls unavailable')); };
       document.body.append(script);
-    }).catch(error => {
-      script.remove();
-      apiPromise = undefined;
-      throw error;
-    });
+    }).catch(error => { script.remove(); apiPromise = undefined; throw error; });
     return apiPromise;
   }
-
-  function configureFrame(frame) {
-    if (!frame) return;
+  function configureFrame() {
+    const frame = mount.querySelector('iframe');
+    if (!frame || !active) return;
     frame.dataset.testid = 'embed-iframe';
-    frame.title = trigger.dataset.playerTitle;
+    frame.title = active.title;
     frame.width = '100%';
     frame.height = '152';
     frame.loading = 'lazy';
     frame.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
     frame.allowFullscreen = true;
   }
-
+  function updateDock() {
+    dock.querySelector('.spotify-dock-heading span').textContent = 'Spotify · ' + active.label;
+    dock.querySelector('.spotify-fallback').href = active.recording;
+    const style = getComputedStyle(document.body);
+    for (const name of ['--paper', '--ink', '--muted', '--line']) dock.style.setProperty(name, style.getPropertyValue(name));
+    syncTriggers();
+    configureFrame();
+  }
+  function fallback() {
+    const frame = document.createElement('iframe');
+    frame.src = active.embed;
+    mount.replaceChildren(frame);
+    configureFrame();
+  }
   function dismiss() {
     generation++;
     opening = false;
-    if (controller) controller.destroy();
+    controller?.destroy();
     controller = undefined;
+    active = undefined;
     mount.replaceChildren();
     dock.hidden = true;
-    trigger.setAttribute('aria-expanded', 'false');
-    trigger.focus({ preventScroll: true });
+    syncTriggers();
+    document.documentElement.classList.remove('spotify-open');
+    document.querySelector('.play-button[data-spotify]')?.focus({preventScroll:true});
   }
-
-  trigger.addEventListener('click', async () => {
-    const url = new URL(trigger.dataset.spotify);
-    if (url.origin !== 'https://open.spotify.com' || !/^\/embed\/track\/[A-Za-z0-9]{22}$/.test(url.pathname)) return;
+  async function play(trigger) {
+    const track = trackFrom(trigger);
+    if (!track) return;
+    const sameTrack = active?.embed === track.embed;
     dock.hidden = false;
-    trigger.setAttribute('aria-expanded', 'true');
-    close.focus({ preventScroll: true });
+    document.documentElement.classList.add('spotify-open');
+    active = track;
+    updateDock();
+    // Opening the dock keeps release-navigation keys available on the Play button.
+    trigger.focus({preventScroll:true});
     if (controller) {
-      controller.play();
+      try {
+        if (!sameTrack) {
+          if (controller.loadEntity) controller.loadEntity(track.recording);
+          else controller.loadUri('spotify:track:' + new URL(track.recording).pathname.split('/').pop());
+        }
+        controller.play();
+      } catch { controller.destroy(); controller = undefined; fallback(); }
       return;
     }
-    if (opening || mount.querySelector('iframe')) return;
-    opening = true;
+    if (sameTrack && (opening || mount.querySelector('iframe'))) return;
     const current = ++generation;
+    if (mount.querySelector('iframe')) { opening = false; fallback(); return; }
+    opening = true;
     const status = document.createElement('p');
     status.setAttribute('role', 'status');
     status.textContent = 'Loading Spotify…';
@@ -77,33 +115,23 @@ if (trigger && dock) {
       if (current !== generation || dock.hidden) return;
       const host = document.createElement('div');
       mount.replaceChildren(host);
-      const trackUrl = new URL(url.href);
-      trackUrl.pathname = trackUrl.pathname.replace('/embed', '');
-      api.createController(host, { url: trackUrl.href, width: '100%', height: 152 }, player => {
-        if (current !== generation || dock.hidden) {
-          player.destroy();
-          return;
-        }
+      api.createController(host, {url:track.recording, width:'100%', height:152}, player => {
+        if (current !== generation || dock.hidden) { player.destroy(); return; }
         controller = player;
-        configureFrame(mount.querySelector('iframe'));
-        player.addListener('ready', () => {
-          if (current === generation && !dock.hidden) player.play();
-        });
+        configureFrame();
+        player.addListener('ready', () => { if (!dock.hidden && controller === player) player.play(); });
       });
-      configureFrame(mount.querySelector('iframe'));
+      configureFrame();
     } catch {
       if (current !== generation || dock.hidden) return;
-      // Keep Spotify's normal play control available if its control API cannot load.
-      const frame = document.createElement('iframe');
-      frame.src = url.href;
-      configureFrame(frame);
-      mount.replaceChildren(frame);
-    } finally {
-      if (current === generation) opening = false;
-    }
+      fallback();
+    } finally { if (current === generation) opening = false; }
+  }
+  document.addEventListener('click', event => {
+    const trigger = event.target instanceof Element ? event.target.closest('.play-button[data-spotify]') : null;
+    if (trigger) play(trigger);
   });
   close.addEventListener('click', dismiss);
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && !dock.hidden) dismiss();
-  });
-}
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && !dock.hidden) dismiss(); });
+  document.addEventListener('hikari:page-change', syncTriggers);
+})();

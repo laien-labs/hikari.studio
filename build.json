@@ -1,5 +1,5 @@
 {
-  "revision": "69724e378666",
+  "revision": "e9fd2df1c8d1",
   "records": [
     {
       "key": "wish::weightless",
@@ -175,5 +175,7 @@
         "sha256": "0377bb9a1de4782b973a0b52c77078ad97e975b0211d6362f17618b74fbb85fa"
       }
     ]
-  }
+  },
+  "navigationRevision": "e9fd2df1c8d1",
+  "persistentPlayback": true
 }

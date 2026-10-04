@@ -1,0 +1,2 @@
+/* Keep the last release links reachable above the open mobile player. */
+@media(max-width:1099px){html.spotify-open #site-page{padding-bottom:calc(264px + env(safe-area-inset-bottom))}}
