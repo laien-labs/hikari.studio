@@ -1,5 +1,5 @@
 {
-  "revision": "e9fd2df1c8d1",
+  "revision": "d86dde1551e7",
   "records": [
     {
       "key": "wish::weightless",
@@ -143,6 +143,10 @@
     {
       "route": "wish/weightless/spotify/",
       "url": "https://open.spotify.com/track/3ScZ036u9RPmIduHrfPD6D"
+    },
+    {
+      "route": "wish/weightless/apple/",
+      "url": "https://music.apple.com/us/album/weightless-wish/6818866382?i=6818866384"
     }
   ],
   "artworkUpdate": {
@@ -176,6 +180,6 @@
       }
     ]
   },
-  "navigationRevision": "e9fd2df1c8d1",
+  "navigationRevision": "d86dde1551e7",
   "persistentPlayback": true
 }

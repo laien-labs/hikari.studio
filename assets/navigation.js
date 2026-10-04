@@ -14,6 +14,8 @@
   let pending;
   let sequence = 0;
   let renderedPath = location.pathname;
+  let sceneTransition;
+  let sceneAnimation;
   const status = document.createElement('span');
   status.setAttribute('role', 'status');
   status.setAttribute('aria-live', 'polite');
@@ -129,6 +131,39 @@
   function internal(url) {
     return url.origin === location.origin && routes.has(url.pathname) && !url.search && !url.hash;
   }
+  function interruptFade() {
+    sceneTransition?.skipTransition();
+    sceneAnimation?.cancel();
+    sceneAnimation = undefined;
+  }
+  async function fadeScene(update, shell) {
+    if (document.hidden) { update(); return; }
+    if (typeof document.startViewTransition === 'function') {
+      const transition = sceneTransition = document.startViewTransition(update);
+      // A newer selection can skip the animation while its DOM update still completes.
+      transition.ready.catch(() => {});
+      transition.finished.catch(() => {}).then(() => {
+        if (sceneTransition === transition) sceneTransition = undefined;
+      });
+      await transition.updateCallbackDone;
+      return;
+    }
+    if (typeof shell.animate !== 'function') { update(); return; }
+    // Older browsers fade the page shell; the player remains its untouched sibling.
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const exit = sceneAnimation = shell.animate([{opacity:1}, {opacity:0}], {
+      duration:reduced ? 40 : 180, easing:'ease-out'
+    });
+    await exit.finished.catch(() => {});
+    if (sceneAnimation !== exit) return;
+    update();
+    const enter = sceneAnimation = document.getElementById('site-page').animate([{opacity:0}, {opacity:1}], {
+      duration:reduced ? 50 : 320, easing:'cubic-bezier(0.16, 1, 0.3, 1)'
+    });
+    enter.finished.catch(() => {}).then(() => {
+      if (sceneAnimation === enter) sceneAnimation = undefined;
+    });
+  }
   function resolveAssets(page, url) {
     for (const element of page.querySelectorAll('[href],[data-hikari-src],[data-hikari-srcset]')) {
       for (const name of ['href', 'data-hikari-src']) {
@@ -155,6 +190,7 @@
     pending?.abort();
     const request = pending = new AbortController();
     const current = ++sequence;
+    interruptFade();
     const oldShell = document.getElementById('site-page');
     oldShell.setAttribute('aria-busy', 'true');
     try {
@@ -167,35 +203,39 @@
       // Prepare both the artwork and its textures before displaying the new scene.
       await warmScene(next, url, 'high');
       if (current !== sequence || request.signal.aborted) return;
-      cache.set(url.href, html);
-      if (historyMode === 'push') history.pushState(null, '', url.href);
-      const keepFocus = document.activeElement?.closest('.spotify-dock');
-      // Never move or reparent the dock: that would reload its cross-origin iframe.
-      oldShell.replaceWith(next);
-      activateAssets(next);
-      renderedPath = url.pathname;
-      document.body.className = page.body.className;
-      document.body.setAttribute('style', page.body.getAttribute('style') || '');
-      document.title = page.title;
-      for (const selector of ['meta[name="description"]', 'meta[name="hikari-preview-revision"]', 'link[rel="canonical"]']) {
-        const existing = document.head.querySelector(selector);
-        const replacement = page.head.querySelector(selector)?.cloneNode(true);
-        if (replacement?.matches('link')) replacement.href = new URL(replacement.getAttribute('href'), url).href;
-        if (existing && replacement) existing.replaceWith(replacement);
-        else if (replacement) document.head.append(replacement);
-        else existing?.remove();
-      }
-      const fragment = historyMode === 'none' && location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
-      if (fragment) fragment.scrollIntoView({block:'start',behavior:'instant'});
-      else window.scrollTo({top:0, left:0, behavior:'instant'});
-      revealCurrent();
-      if (!keepFocus) {
-        const focus = focusCatalog ? next.querySelector('.catalog a[aria-current="page"]') : next.querySelector('h1');
-        if (focus) { if (!focus.matches('a')) focus.tabIndex = -1; focus.focus({preventScroll:true}); }
-      }
-      status.textContent = next.querySelector('.song')?.textContent + ' by ' + next.querySelector('h1')?.textContent;
-      document.dispatchEvent(new CustomEvent('hikari:page-change'));
-      queueNearby();
+      const update = () => {
+        if (current !== sequence || request.signal.aborted) return;
+        cache.set(url.href, html);
+        if (historyMode === 'push') history.pushState(null, '', url.href);
+        const keepFocus = document.activeElement?.closest('.spotify-dock');
+        // Never move or reparent the dock: that would reload its cross-origin iframe.
+        oldShell.replaceWith(next);
+        activateAssets(next);
+        renderedPath = url.pathname;
+        document.body.className = page.body.className;
+        document.body.setAttribute('style', page.body.getAttribute('style') || '');
+        document.title = page.title;
+        for (const selector of ['meta[name="description"]', 'meta[name="hikari-preview-revision"]', 'link[rel="canonical"]']) {
+          const existing = document.head.querySelector(selector);
+          const replacement = page.head.querySelector(selector)?.cloneNode(true);
+          if (replacement?.matches('link')) replacement.href = new URL(replacement.getAttribute('href'), url).href;
+          if (existing && replacement) existing.replaceWith(replacement);
+          else if (replacement) document.head.append(replacement);
+          else existing?.remove();
+        }
+        const fragment = historyMode === 'none' && location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+        if (fragment) fragment.scrollIntoView({block:'start',behavior:'instant'});
+        else window.scrollTo({top:0, left:0, behavior:'instant'});
+        revealCurrent();
+        if (!keepFocus) {
+          const focus = focusCatalog ? next.querySelector('.catalog a[aria-current="page"]') : next.querySelector('h1');
+          if (focus) { if (!focus.matches('a')) focus.tabIndex = -1; focus.focus({preventScroll:true}); }
+        }
+        status.textContent = next.querySelector('.song')?.textContent + ' by ' + next.querySelector('h1')?.textContent;
+        document.dispatchEvent(new CustomEvent('hikari:page-change'));
+        queueNearby();
+      };
+      await fadeScene(update, oldShell);
     } catch (error) {
       if (error.name !== 'AbortError' && current === sequence) location.assign(url.href);
     } finally {
@@ -209,12 +249,12 @@
     const url = new URL(link.href);
     if (!internal(url)) return;
     event.preventDefault();
-    if (url.href === location.href) { pending?.abort(); sequence++; document.getElementById('site-page').removeAttribute('aria-busy'); return; }
+    if (url.href === location.href) { pending?.abort(); sequence++; interruptFade(); document.getElementById('site-page').removeAttribute('aria-busy'); return; }
     navigate(url, {focusCatalog:!!link.closest('.catalog')});
   });
   window.addEventListener('popstate', () => {
     const url = new URL(location.href);
-    if (url.pathname === renderedPath) { pending?.abort(); sequence++; document.getElementById('site-page').removeAttribute('aria-busy'); return; }
+    if (url.pathname === renderedPath) { pending?.abort(); sequence++; interruptFade(); document.getElementById('site-page').removeAttribute('aria-busy'); return; }
     url.hash = '';
     navigate(url, {historyMode:'none'});
   });

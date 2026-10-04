@@ -1,2 +1,19 @@
 /* Keep the last release links reachable above the open mobile player. */
 @media(max-width:1099px){html.spotify-open #site-page{padding-bottom:calc(264px + env(safe-area-inset-bottom))}}
+
+/* Reserve three quote lines at the selected 1.5 line height so controls align. */
+.scene-themed .scene-card .quote{min-height:4.5em}
+
+/* Crossfade the viewport while the separately captured player stays still. */
+.spotify-dock{view-transition-name:hikari-player}
+::view-transition{pointer-events:none}
+::view-transition-group(root){animation:none;z-index:0}
+::view-transition-old(root),::view-transition-new(root){animation-duration:500ms;animation-timing-function:cubic-bezier(0.16,1,0.3,1);animation-fill-mode:both}
+::view-transition-old(root){animation-name:hikari-scene-out}
+::view-transition-new(root){animation-name:hikari-scene-in}
+::view-transition-group(hikari-player){animation:none;z-index:1}
+::view-transition-old(hikari-player){display:none}
+::view-transition-new(hikari-player){animation:none;mix-blend-mode:normal;opacity:1}
+@keyframes hikari-scene-out{to{opacity:0}}
+@keyframes hikari-scene-in{from{opacity:0}}
+@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation-duration:90ms}}
