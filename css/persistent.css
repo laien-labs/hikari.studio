@@ -4,6 +4,16 @@
 /* Reserve three quote lines at the selected 1.5 line height so controls align. */
 .scene-themed .scene-card .quote{min-height:4.5em}
 
+/* Keep the persona beneath each title in every catalog build. */
+.catalog-personas .catalog-persona{display:block;font:400 9px/1.3 var(--sans);letter-spacing:.08em;color:var(--on-muted)}
+.scene-themed.catalog-personas .catalog a{grid-template-columns:22px minmax(0,1fr) 36px}
+.scene-themed.catalog-personas .catalog a::after{display:none}
+
+/* Keep the selected tint; show keyboard focus on the title without a pill border. */
+.scene-themed .catalog a[aria-current]{box-shadow:none}
+.scene-themed .catalog a:focus-visible{outline:none}
+.scene-themed .catalog a:focus-visible .track-title{text-decoration-line:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+
 /* Crossfade the viewport while the separately captured player stays still. */
 .spotify-dock{view-transition-name:hikari-player}
 ::view-transition{pointer-events:none}

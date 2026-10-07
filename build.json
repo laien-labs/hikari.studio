@@ -1,6 +1,27 @@
 {
-  "revision": "d86dde1551e7",
+  "revision": "d60d2b484139",
+  "availabilityControlled": true,
   "records": [
+    {
+      "key": "luma::slow",
+      "hp": "HP-009",
+      "title": "Slow",
+      "form": "Luma",
+      "page": "luma/slow/index.html",
+      "route": "luma/slow/",
+      "legacyPage": "songs/hp-009.html",
+      "websiteStatus": "coming-soon"
+    },
+    {
+      "key": "hika::rain",
+      "hp": "HP-008",
+      "title": "Rain",
+      "form": "Hika",
+      "page": "hika/rain/index.html",
+      "route": "hika/rain/",
+      "legacyPage": "songs/hp-008.html",
+      "websiteStatus": "live"
+    },
     {
       "key": "wish::weightless",
       "hp": "HP-007",
@@ -8,7 +29,8 @@
       "form": "Wish",
       "page": "wish/weightless/index.html",
       "route": "wish/weightless/",
-      "legacyPage": "songs/hp-007.html"
+      "legacyPage": "songs/hp-007.html",
+      "websiteStatus": "live"
     },
     {
       "key": "echo::wake",
@@ -17,7 +39,8 @@
       "form": "Echo",
       "page": "echo/wake/index.html",
       "route": "echo/wake/",
-      "legacyPage": "songs/hp-006.html"
+      "legacyPage": "songs/hp-006.html",
+      "websiteStatus": "live"
     },
     {
       "key": "flux::alone",
@@ -26,7 +49,8 @@
       "form": "Flux",
       "page": "flux/alone/index.html",
       "route": "flux/alone/",
-      "legacyPage": "songs/hp-005.html"
+      "legacyPage": "songs/hp-005.html",
+      "websiteStatus": "live"
     },
     {
       "key": "aura::komorebi",
@@ -35,7 +59,8 @@
       "form": "Aura",
       "page": "aura/komorebi/index.html",
       "route": "aura/komorebi/",
-      "legacyPage": "songs/hp-004.html"
+      "legacyPage": "songs/hp-004.html",
+      "websiteStatus": "live"
     },
     {
       "key": "rift::afterimage",
@@ -44,7 +69,8 @@
       "form": "Rift",
       "page": "rift/afterimage/index.html",
       "route": "rift/afterimage/",
-      "legacyPage": "songs/hp-003.html"
+      "legacyPage": "songs/hp-003.html",
+      "websiteStatus": "live"
     },
     {
       "key": "luma::fragile",
@@ -53,7 +79,8 @@
       "form": "Luma",
       "page": "luma/fragile/index.html",
       "route": "luma/fragile/",
-      "legacyPage": "songs/hp-002.html"
+      "legacyPage": "songs/hp-002.html",
+      "websiteStatus": "live"
     },
     {
       "key": "hika::reach",
@@ -62,10 +89,11 @@
       "form": "Hika",
       "page": "hika/reach/index.html",
       "route": "hika/reach/",
-      "legacyPage": "songs/hp-001.html"
+      "legacyPage": "songs/hp-001.html",
+      "websiteStatus": "live"
     }
   ],
-  "selectedRevision": "2c8b5bc0af8d",
+  "selectedRevision": "2da2544aaf88",
   "selectedDesign": "v8",
   "redirects": [
     {
@@ -81,8 +109,36 @@
       "url": "https://www.youtube.com/@hikariproject.studio"
     },
     {
+      "route": "hika/rain/spotify/",
+      "url": "https://open.spotify.com/track/6S0jfgrDO5yKAIMs8E77M8"
+    },
+    {
+      "route": "hika/rain/apple/",
+      "url": "https://music.apple.com/us/album/rain-hika/6820136795?i=6820136796"
+    },
+    {
+      "route": "wish/weightless/spotify/",
+      "url": "https://open.spotify.com/track/3ScZ036u9RPmIduHrfPD6D"
+    },
+    {
+      "route": "wish/weightless/apple/",
+      "url": "https://music.apple.com/us/album/weightless-wish/6818866382?i=6818866384"
+    },
+    {
+      "route": "echo/wake/spotify/",
+      "url": "https://open.spotify.com/track/7tEitN03OHMOeu5hP1MSp8"
+    },
+    {
+      "route": "echo/wake/apple/",
+      "url": "https://music.apple.com/us/album/wake-echo/6818537615?i=6818537616"
+    },
+    {
       "route": "flux/alone/spotify/",
       "url": "https://open.spotify.com/track/4u7mr7ZjANxRuM3RLuiP9f"
+    },
+    {
+      "route": "flux/alone/apple/",
+      "url": "https://music.apple.com/us/album/alone-flux/6817880956?i=6817880957"
     },
     {
       "route": "aura/komorebi/spotify/",
@@ -119,67 +175,6 @@
     {
       "route": "listen/",
       "url": "../index.html"
-    },
-    {
-      "route": "echo/wake/youtube/",
-      "url": "https://youtu.be/ExxAkTr_hcY"
-    },
-    {
-      "route": "echo/wake/spotify/",
-      "url": "https://open.spotify.com/track/7tEitN03OHMOeu5hP1MSp8"
-    },
-    {
-      "route": "echo/wake/apple/",
-      "url": "https://music.apple.com/us/album/wake-echo/6818537615?i=6818537616"
-    },
-    {
-      "route": "flux/alone/apple/",
-      "url": "https://music.apple.com/us/album/alone-flux/6817880956?i=6817880957"
-    },
-    {
-      "route": "wish/weightless/youtube/",
-      "url": "https://youtu.be/Cz7V2j1IX2Y"
-    },
-    {
-      "route": "wish/weightless/spotify/",
-      "url": "https://open.spotify.com/track/3ScZ036u9RPmIduHrfPD6D"
-    },
-    {
-      "route": "wish/weightless/apple/",
-      "url": "https://music.apple.com/us/album/weightless-wish/6818866382?i=6818866384"
     }
-  ],
-  "artworkUpdate": {
-    "source": "art/_review/weightless-website-20261003/approved-artwork.json",
-    "baselineRevision": "d51a290952be",
-    "keys": [
-      "wish::weightless"
-    ],
-    "changedPages": [
-      "index.html",
-      "wish/weightless/index.html"
-    ],
-    "assets": [
-      {
-        "key": "wish::weightless",
-        "property": "desktop",
-        "relative": "assets/bg/hp-007.jpg",
-        "sha256": "47181b17e9f2388057186078b343ad28f43dad9fc310c90a048a0ab8a989efa9"
-      },
-      {
-        "key": "wish::weightless",
-        "property": "mobile",
-        "relative": "assets/mobile/hp-007.jpg",
-        "sha256": "1690d050573c772b8b2c3649a33c290fc22c1ff45e3899750b1763a275ce7c13"
-      },
-      {
-        "key": "wish::weightless",
-        "property": "cover",
-        "relative": "assets/covers/hp-007.jpg",
-        "sha256": "0377bb9a1de4782b973a0b52c77078ad97e975b0211d6362f17618b74fbb85fa"
-      }
-    ]
-  },
-  "navigationRevision": "d86dde1551e7",
-  "persistentPlayback": true
+  ]
 }
