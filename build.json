@@ -1,7 +1,17 @@
 {
-  "revision": "d60d2b484139",
+  "revision": "cf25917d260e",
   "availabilityControlled": true,
   "records": [
+    {
+      "key": "rift::mizutamari",
+      "hp": "HP-010",
+      "title": "Mizutamari",
+      "form": "Rift",
+      "page": "rift/mizutamari/index.html",
+      "route": "rift/mizutamari/",
+      "legacyPage": "songs/hp-010.html",
+      "websiteStatus": "live"
+    },
     {
       "key": "luma::slow",
       "hp": "HP-009",
