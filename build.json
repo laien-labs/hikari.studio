@@ -1,5 +1,5 @@
 {
-  "revision": "4094b5ca98c6",
+  "revision": "918818e1ccd0",
   "availabilityControlled": true,
   "records": [
     {
@@ -20,7 +20,7 @@
       "page": "luma/slow/index.html",
       "route": "luma/slow/",
       "legacyPage": "songs/hp-009.html",
-      "websiteStatus": "coming-soon"
+      "websiteStatus": "live"
     },
     {
       "key": "hika::rain",
@@ -193,6 +193,18 @@
     {
       "route": "rift/mizutamari/apple/",
       "url": "https://music.apple.com/us/album/mizutamari-rift/6821389815?i=6821389816"
+    },
+    {
+      "route": "luma/slow/youtube/",
+      "url": "https://www.youtube.com/watch?v=ozTVt9fHz4I"
+    },
+    {
+      "route": "luma/slow/spotify/",
+      "url": "https://open.spotify.com/track/7InOuYaxFWZGUFeQDUcRyG"
+    },
+    {
+      "route": "luma/slow/apple/",
+      "url": "https://music.apple.com/us/album/slow-luma/6820597608?i=6820597609"
     }
   ]
 }
