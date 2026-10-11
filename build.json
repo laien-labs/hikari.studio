@@ -1,5 +1,5 @@
 {
-  "revision": "cf25917d260e",
+  "revision": "4094b5ca98c6",
   "availabilityControlled": true,
   "records": [
     {
@@ -185,6 +185,14 @@
     {
       "route": "listen/",
       "url": "../index.html"
+    },
+    {
+      "route": "rift/mizutamari/spotify/",
+      "url": "https://open.spotify.com/track/68K6LMr0kGq7bL9lgFUPYS"
+    },
+    {
+      "route": "rift/mizutamari/apple/",
+      "url": "https://music.apple.com/us/album/mizutamari-rift/6821389815?i=6821389816"
     }
   ]
 }
