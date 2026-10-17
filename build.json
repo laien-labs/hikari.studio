@@ -1,7 +1,37 @@
 {
-  "revision": "918818e1ccd0",
+  "revision": "7bafa0173490",
   "availabilityControlled": true,
   "records": [
+    {
+      "key": "echo::midnight blur",
+      "hp": "HP-013",
+      "title": "Midnight Blur",
+      "form": "Echo",
+      "page": "echo/midnight-blur/index.html",
+      "route": "echo/midnight-blur/",
+      "legacyPage": "songs/hp-013.html",
+      "websiteStatus": "live"
+    },
+    {
+      "key": "flux::komorebi",
+      "hp": "HP-012",
+      "title": "Komorebi",
+      "form": "Flux",
+      "page": "flux/komorebi/index.html",
+      "route": "flux/komorebi/",
+      "legacyPage": "songs/hp-012.html",
+      "websiteStatus": "live"
+    },
+    {
+      "key": "aura::fragile",
+      "hp": "HP-011",
+      "title": "Fragile",
+      "form": "Aura",
+      "page": "aura/fragile/index.html",
+      "route": "aura/fragile/",
+      "legacyPage": "songs/hp-011.html",
+      "websiteStatus": "live"
+    },
     {
       "key": "rift::mizutamari",
       "hp": "HP-010",
@@ -205,6 +235,38 @@
     {
       "route": "luma/slow/apple/",
       "url": "https://music.apple.com/us/album/slow-luma/6820597608?i=6820597609"
+    },
+    {
+      "route": "echo/midnight-blur/spotify/",
+      "url": "https://open.spotify.com/track/5SRG0rt7HthtFfpRwQlinG"
+    },
+    {
+      "route": "echo/midnight-blur/apple/",
+      "url": "https://music.apple.com/us/album/midnight-blur-echo/6824032349?i=6824032350"
+    },
+    {
+      "route": "flux/komorebi/spotify/",
+      "url": "https://open.spotify.com/track/3GOYT0RBfw4tiL3JTNL6c7"
+    },
+    {
+      "route": "flux/komorebi/apple/",
+      "url": "https://music.apple.com/us/album/komorebi-flux/6823542153?i=6823542155"
+    },
+    {
+      "route": "flux/komorebi/youtube/",
+      "url": "https://www.youtube.com/watch?v=XoIXOi-ySHI"
+    },
+    {
+      "route": "aura/fragile/spotify/",
+      "url": "https://open.spotify.com/track/69wONbrKL28PCAknRcphEw"
+    },
+    {
+      "route": "aura/fragile/apple/",
+      "url": "https://music.apple.com/us/album/fragile-aura/6822618654?i=6822618655"
+    },
+    {
+      "route": "aura/fragile/youtube/",
+      "url": "https://www.youtube.com/watch?v=1TsL2beQb2A"
     }
   ]
 }
