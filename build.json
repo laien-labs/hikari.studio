@@ -1,7 +1,27 @@
 {
-  "revision": "7bafa0173490",
+  "revision": "658ef06f79da",
   "availabilityControlled": true,
   "records": [
+    {
+      "key": "sync::stage select",
+      "hp": "HP-015",
+      "title": "Stage Select",
+      "form": "Sync",
+      "page": "sync/stage-select/index.html",
+      "route": "sync/stage-select/",
+      "legacyPage": "songs/hp-015.html",
+      "websiteStatus": "live"
+    },
+    {
+      "key": "wish::maybe",
+      "hp": "HP-014",
+      "title": "Maybe",
+      "form": "Wish",
+      "page": "wish/maybe/index.html",
+      "route": "wish/maybe/",
+      "legacyPage": "songs/hp-014.html",
+      "websiteStatus": "live"
+    },
     {
       "key": "echo::midnight blur",
       "hp": "HP-013",
@@ -267,6 +287,26 @@
     {
       "route": "aura/fragile/youtube/",
       "url": "https://www.youtube.com/watch?v=1TsL2beQb2A"
+    },
+    {
+      "route": "sync/stage-select/spotify/",
+      "url": "https://open.spotify.com/track/4o9PbzVYKsrbsmpr0dTLu5"
+    },
+    {
+      "route": "sync/stage-select/apple/",
+      "url": "https://music.apple.com/us/album/stage-select-sync/6826916140?i=6826916141"
+    },
+    {
+      "route": "wish/maybe/spotify/",
+      "url": "https://open.spotify.com/track/6E3hYKay1V5Z8LsyaZwh2s"
+    },
+    {
+      "route": "wish/maybe/apple/",
+      "url": "https://music.apple.com/us/album/maybe-wish/6826360702?i=6826360703"
+    },
+    {
+      "route": "wish/maybe/youtube/",
+      "url": "https://youtu.be/ftVuwWFjNa8"
     }
   ]
 }
